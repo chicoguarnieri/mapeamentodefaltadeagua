@@ -2,19 +2,23 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serviço de Atendimento à Falta de Água</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Serviço de Atendimento à Falta de Água - Barra do Bugres</title>
     <style>
-        /* Variáveis de Cores e Tema */
+        /* Variáveis de Tema - Estilo Apple com Pegada Água/Azul */
         :root {
-            --primary-blue: #005f9e;
-            --secondary-blue: #0093d0;
-            --light-blue: #e6f4f1;
-            --text-dark: #333333;
-            --text-light: #666666;
-            --white: #ffffff;
-            --border-color: #cccccc;
-            --error-color: #d9534f;
+            --apple-bg: #eef6fc; /* Fundo azul água bem claro */
+            --apple-card: #ffffff;
+            --apple-text: #0b2540; /* Azul marinho escuro para o texto */
+            --apple-text-light: #5c7b99;
+            --apple-blue: #0071e3; /* Azul vibrante Apple */
+            --apple-blue-hover: #005bb5;
+            --apple-red: #ff3b30;
+            --apple-input-bg: #e4f0f9; /* Fundo de input levemente azulado */
+            --apple-border: #cbe0f5;
+            --radius-lg: 24px;
+            --radius-md: 14px;
+            --radius-sm: 10px;
         }
 
         /* Reset e Estilos Globais */
@@ -22,321 +26,418 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            background-color: #f4f8fb;
-            color: var(--text-dark);
-            line-height: 1.6;
+            background-color: var(--apple-bg);
+            /* Elementos de água no fundo (Ondas fluídas e elegantes) */
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%230071e3' fill-opacity='0.05' d='M0,160L48,149.3C96,139,192,117,288,128C384,139,480,181,576,186.7C672,192,768,160,864,138.7C960,117,1056,107,1152,117.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E"),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%230071e3' fill-opacity='0.03' d='M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,213.3C672,224,768,224,864,202.7C960,181,1056,139,1152,133.3C1248,128,1344,160,1392,176L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat, no-repeat;
+            background-position: bottom, bottom;
+            background-attachment: fixed, fixed;
+            background-size: 100% auto, 100% auto;
+            color: var(--apple-text);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Cabeçalho Oficial */
+        /* Cabeçalho com Glassmorphism */
         header {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 15px 20px;
+            background: rgba(238, 246, 252, 0.85); /* Tom do fundo com transparência */
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 113, 227, 0.1); /* Borda azulada sutil */
+            padding: 16px 20px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         header h1 {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 600;
+            letter-spacing: -0.02em;
         }
 
         header p {
-            font-size: 0.9rem;
-            opacity: 0.9;
+            font-size: 0.85rem;
+            color: var(--apple-text-light);
+            margin-top: 2px;
         }
 
-        /* Banner Principal (Proporção baseada em 1920x300) */
-        .banner-container {
-            width: 100%;
-            max-width: 1920px;
+        /* Container de Conteúdo */
+        .content-wrapper {
+            max-width: 860px;
             margin: 0 auto;
-            position: relative;
+            padding: 30px 20px;
+            flex-grow: 1;
+            width: 100%;
         }
 
+        /* Banner Principal Moderno */
         .banner {
             width: 100%;
-            height: 300px;
-            /* Imagem com temática de seca/falta de água com as proporções corretas */
-            background-image: url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1920&h=300&q=80');
+            height: 280px;
+            border-radius: var(--radius-lg);
+            /* Imagem de água limpa e cristalina */
+            background-image: url('https://images.unsplash.com/photo-1527066579998-dbbae57f45ce?auto=format&fit=crop&w=1920&h=400&q=80');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 113, 227, 0.15); /* Sombra azulada */
         }
 
         .banner-overlay {
-            background: rgba(0, 95, 158, 0.7);
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* Gradiente azul profundo para combinar com a água */
+            background: linear-gradient(to top, rgba(0, 35, 75, 0.85) 0%, rgba(0, 60, 120, 0.2) 100%);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-align: center;
-            padding: 0 20px;
+            justify-content: flex-end;
+            padding: 30px;
+            color: white;
         }
 
         .banner-overlay h2 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.03em;
         }
 
         .banner-overlay p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            opacity: 0.9;
             max-width: 600px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
-        /* Container Principal do Formulário */
-        .main-container {
-            max-width: 800px;
-            margin: -40px auto 40px auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
+        /* Painel de Estatísticas Público (Estilo iOS Widgets) */
+        .public-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
+        .stat-box {
+            background: var(--apple-card);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 113, 227, 0.06); /* Sombra azulada suave */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat-box h4 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .stat-box p {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-blue h4 { color: var(--apple-blue); }
+        .stat-blue p { color: var(--apple-text-light); }
+        
+        .stat-red h4 { color: var(--apple-red); }
+        .stat-red p { color: var(--apple-text-light); }
+
+        /* Formulário de Registro */
         .form-card {
-            background-color: var(--white);
-            border-radius: 8px;
-            padding: 30px 40px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-top: 5px solid var(--secondary-blue);
+            background-color: var(--apple-card);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: 0 4px 24px rgba(0, 113, 227, 0.06); /* Sombra azulada suave */
+            margin-bottom: 40px;
         }
 
         .form-card h3 {
-            color: var(--primary-blue);
-            font-size: 1.4rem;
-            margin-bottom: 5px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
         }
 
         .form-card > p {
-            color: var(--text-light);
-            margin-bottom: 25px;
-            font-size: 0.95rem;
+            color: var(--apple-text-light);
+            margin-bottom: 30px;
+            font-size: 1rem;
         }
 
-        /* Estilos de Formulário */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: var(--text-dark);
+            font-size: 0.9rem;
+            color: var(--apple-text);
         }
 
         .form-control {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
+            padding: 16px;
+            background-color: var(--apple-input-bg);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            color: var(--apple-text);
+            transition: all 0.2s ease;
         }
 
         .form-control:focus {
             outline: none;
-            border-color: var(--secondary-blue);
-            box-shadow: 0 0 0 3px rgba(0, 147, 208, 0.2);
+            border-color: var(--apple-blue);
+            background-color: var(--white);
+            box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.15);
         }
 
-        /* Opções de Rádio Personalizadas */
-        .radio-group-container {
-            background-color: var(--light-blue);
-            padding: 15px 20px;
-            border-radius: 6px;
-            border: 1px solid #cce5df;
+        .form-control::placeholder {
+            color: #a1a1a6;
+        }
+
+        /* Opções de Rádio (Estilo Cards Apple) */
+        .radio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
         }
 
         .radio-option {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
+            position: relative;
             cursor: pointer;
-        }
-
-        .radio-option:last-child {
-            margin-bottom: 0;
         }
 
         .radio-option input[type="radio"] {
-            margin-right: 12px;
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: var(--primary-blue);
+            position: absolute;
+            opacity: 0;
         }
 
         .radio-option span {
-            font-size: 1.05rem;
+            display: block;
+            padding: 16px;
+            background-color: var(--apple-input-bg);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-align: center;
         }
 
-        /* Botão de Envio */
+        .radio-option input[type="radio"]:checked + span {
+            background-color: rgba(0, 102, 204, 0.08);
+            border-color: var(--apple-blue);
+            color: var(--apple-blue);
+            font-weight: 600;
+        }
+
+        /* Botão Estilo iOS */
         .submit-btn {
-            background-color: var(--primary-blue);
-            color: var(--white);
+            background-color: var(--apple-blue);
+            color: white;
             border: none;
             width: 100%;
-            padding: 15px;
+            padding: 18px;
             font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 6px;
+            font-weight: 600;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.1s ease;
+            transition: all 0.2s ease;
             margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .submit-btn:hover {
-            background-color: #004b7c;
+            background-color: var(--apple-blue-hover);
+            transform: scale(0.99);
         }
 
         .submit-btn:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         /* Rodapé */
         footer {
             text-align: center;
-            padding: 20px;
-            color: var(--text-light);
+            padding: 30px 20px;
+            color: var(--apple-text-light);
             font-size: 0.85rem;
-            margin-top: 40px;
+            border-top: 1px solid var(--apple-border);
+            margin-top: auto;
         }
 
-        /* Notificação de Sucesso/Erro */
+        footer a {
+            color: var(--apple-text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--apple-text);
+        }
+
+        /* Notificação */
         .notification {
             display: none;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
             text-align: center;
             font-weight: 600;
+            animation: slideDown 0.4s ease;
         }
+        
         .notification.success {
             display: block;
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background-color: #e5f4eb;
+            color: #128246;
         }
 
-        /* Modal de Senha */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Modal Glassmorphism */
         .password-modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 20, 50, 0.4); /* Fundo azul marinho transparente */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
-        }
-        .password-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 350px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            padding: 20px;
         }
 
-        /* Estilos do Painel Admin */
+        .password-card {
+            background: var(--apple-card);
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15); /* Sombra azulada */
+            text-align: center;
+        }
+
+        /* Área Administrativa */
         .admin-container {
             display: none;
-            max-width: 1000px;
-            margin: 0 auto 40px auto;
-            padding: 20px;
-            background-color: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            border-top: 5px solid var(--text-dark);
+            background-color: var(--apple-card);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: 0 4px 24px rgba(0, 113, 227, 0.06); /* Sombra azulada */
+            margin-bottom: 40px;
         }
+
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
+
         .admin-header h3 {
-            color: var(--text-dark);
+            font-weight: 600;
         }
+
         .btn-close-admin {
-            background: #ccc;
+            background: var(--apple-input-bg);
+            color: var(--apple-text);
             border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
+            padding: 8px 16px;
+            border-radius: 20px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
+
         .table-responsive {
             overflow-x: auto;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--apple-border);
         }
+
         .admin-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
+
         .admin-table th, .admin-table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 16px;
+            border-bottom: 1px solid var(--apple-border);
             text-align: left;
         }
+
         .admin-table th {
-            background-color: var(--light-blue);
-            color: var(--primary-blue);
+            background-color: var(--apple-input-bg);
+            font-weight: 600;
+            color: var(--apple-text-light);
         }
+
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+
         .action-btn {
             display: inline-block;
-            padding: 6px 12px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            border-radius: 4px;
-            color: var(--white);
+            padding: 8px 14px;
+            margin-right: 6px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            color: white;
             text-decoration: none;
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 600;
         }
-        .btn-zap { background-color: #25D366; }
-        .btn-map { background-color: #4285F4; }
+
+        .btn-zap { background-color: #34c759; } /* Apple Green */
+        .btn-map { background-color: var(--apple-blue); }
 
         /* Responsividade */
-        @media (max-width: 768px) {
-            .banner {
-                height: 250px;
-            }
-            .banner-overlay h2 {
-                font-size: 1.8rem;
-            }
-            .form-card {
-                padding: 20px;
-            }
+        @media (max-width: 600px) {
+            .banner { height: 220px; border-radius: var(--radius-md); }
+            .banner-overlay h2 { font-size: 1.5rem; }
+            .form-card { padding: 24px; border-radius: var(--radius-md); }
+            .stat-box { padding: 16px; }
+            .stat-box h4 { font-size: 2rem; }
+            .radio-grid { grid-template-columns: 1fr 1fr; } /* Coloca rádios lado a lado no mobile se couber */
         }
-
-        @media (max-width: 480px) {
-            .banner {
-                height: 200px;
-            }
-            .banner-overlay h2 {
-                font-size: 1.5rem;
-            }
-            .banner-overlay p {
-                font-size: 0.9rem;
-            }
-            .main-container {
-                margin-top: -20px;
-            }
+        
+        @media (max-width: 400px) {
+            .radio-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -344,199 +445,212 @@
 
     <!-- Cabeçalho Institucional -->
     <header>
-        <h1>Serviço e Atendimento à Falta de Água</h1>
-        <p></p>
+        <h1>Serviço de Atendimento à Falta de Água</h1>
+        <p>Município de Barra do Bugres - MT</p>
     </header>
 
-    <!-- Banner 1920x300px -->
-    <div class="banner-container">
+    <main class="content-wrapper">
+        <!-- Banner -->
         <div class="banner">
             <div class="banner-overlay">
-                <h2>Registro de Falta de Água</h2>
-                <p>Informe a situação do abastecimento na sua região.</p>
+                <h2>Censo de Abastecimento</h2>
+                <p>Ajude as equipes de manutenção relatando as instabilidades na sua região.</p>
             </div>
         </div>
-    </div>
 
-    <!-- Container do Formulário -->
-    <main class="main-container">
+        <!-- Painel de Estatísticas Público -->
+        <div class="public-stats">
+            <div class="stat-box stat-blue">
+                <h4 id="total-cadastros">...</h4>
+                <p>Pessoas Cadastradas</p>
+            </div>
+            <div class="stat-box stat-red">
+                <h4 id="total-sem-agua">...</h4>
+                <p>Casas com Falta de Água</p>
+            </div>
+        </div>
+
+        <!-- Formulário de Registro -->
         <div class="form-card">
-            
             <div id="notification-area"></div>
 
             <h3>Registrar Ocorrência</h3>
-            <p>Preencha os dados abaixo para registrar a falta de água ou instabilidade no abastecimento em sua residência.</p>
+            <p>Preencha os dados abaixo de forma rápida e segura para registrar a situação da sua residência.</p>
 
             <form id="leadForm">
-                
-                <!-- Nome -->
                 <div class="form-group">
-                    <label for="nome">Nome Completo *</label>
-                    <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite seu nome completo" required>
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" class="form-control" placeholder="Seu nome" required>
                 </div>
 
-                <!-- Endereço -->
                 <div class="form-group">
-                    <label for="endereco">Endereço Completo *</label>
-                    <input type="text" id="endereco" name="endereco" class="form-control" placeholder="Rua, Número, Bairro, Ponto de Referência" required>
+                    <label for="endereco">Endereço Completo</label>
+                    <input type="text" id="endereco" name="endereco" class="form-control" placeholder="Rua, Número, Bairro" required>
                 </div>
 
-                <!-- Telefone -->
                 <div class="form-group">
-                    <label for="telefone">Telefone (WhatsApp) *</label>
+                    <label for="telefone">Telefone (WhatsApp)</label>
                     <input type="tel" id="telefone" name="telefone" class="form-control" placeholder="(00) 00000-0000" required>
                 </div>
 
-                <!-- Situação da Água -->
                 <div class="form-group">
-                    <label>Situação da Distribuição de Água *</label>
-                    <div class="radio-group-container">
+                    <label>Situação da Água</label>
+                    <div class="radio-grid">
                         <label class="radio-option">
                             <input type="radio" name="situacao_agua" value="Recebo água normal" required>
-                            <span>Recebo água normal</span>
+                            <span>Recebo normal</span>
                         </label>
-                        
                         <label class="radio-option">
                             <input type="radio" name="situacao_agua" value="De vez em quando">
                             <span>De vez em quando</span>
                         </label>
-                        
                         <label class="radio-option">
                             <input type="radio" name="situacao_agua" value="Nem sempre">
                             <span>Nem sempre</span>
                         </label>
-                        
                         <label class="radio-option">
                             <input type="radio" name="situacao_agua" value="Nunca">
-                            <span>Nunca</span>
+                            <span>Nunca recebo</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Botão Enviar -->
                 <button type="submit" class="submit-btn">Enviar Informações</button>
             </form>
         </div>
-    </main>
 
-    <!-- Rodapé -->
-    <footer>
-        <p>&copy; Serviço de Atendimento à Falta de Água.</p>
-        <p>Ao se cadastrar você concorda em disponibilizar todos os dados fornecidos.</p>
-        <p style="margin-top: 15px;"><a href="#" id="open-admin" style="color: var(--text-light); text-decoration: underline;">🔒 Acesso Área Administrativa</a></p>
-    </footer>
+        <!-- Painel Administrativo (Oculto) -->
+        <div class="admin-container" id="admin-panel">
+            <div class="admin-header">
+                <h3>Registros (Área Restrita)</h3>
+                <button id="close-admin" class="btn-close-admin">Fechar</button>
+            </div>
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Endereço</th>
+                            <th>Situação</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="registros-tbody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: var(--apple-text-light);">Nenhum registro ainda.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 
     <!-- Modal de Senha -->
     <div class="password-modal" id="password-modal">
         <div class="password-card">
-            <h4 style="margin-bottom: 15px; color: var(--text-dark); text-align: center;">Acesso Restrito 🔒</h4>
+            <h4 style="margin-bottom: 20px; color: var(--apple-text);">Acesso Restrito 🔒</h4>
             <input type="password" id="admin-password" class="form-control" placeholder="Digite a senha">
-            <p id="password-error" style="color: var(--error-color); display: none; margin-top: 10px; font-size: 0.85rem; text-align: center;">Senha incorreta. Tente novamente.</p>
-            <button id="btn-verify-password" class="submit-btn" style="padding: 10px; margin-top: 15px;">Entrar</button>
-            <button id="btn-cancel-password" style="margin-top: 15px; background: none; border: none; color: var(--text-light); cursor: pointer; text-decoration: underline; width: 100%;">Cancelar</button>
+            <p id="password-error" style="color: var(--apple-red); display: none; margin-top: 12px; font-size: 0.85rem;">Senha incorreta.</p>
+            <button id="btn-verify-password" class="submit-btn" style="padding: 14px; margin-top: 20px;">Acessar</button>
+            <button id="btn-cancel-password" style="margin-top: 15px; background: none; border: none; color: var(--apple-text-light); cursor: pointer; font-size: 0.95rem; font-weight: 500;">Cancelar</button>
         </div>
     </div>
 
-    <!-- Painel Administrativo (Oculto por padrão) -->
-    <div class="admin-container" id="admin-panel">
-        <div class="admin-header">
-            <h3>Registros Cadastrados (Área Admin)</h3>
-            <button id="close-admin" class="btn-close-admin">Fechar</button>
-        </div>
-        <div class="table-responsive">
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>Endereço</th>
-                        <th>Situação</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="registros-tbody">
-                    <!-- Registros aparecerão aqui -->
-                    <tr>
-                        <td colspan="5" style="text-align: center; color: var(--text-light);">Nenhum registro ainda.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2026 Serviço de Atendimento à Falta de Água.</p>
+        <p>Ao se cadastrar você concorda em disponibilizar todos os dados fornecidos.</p>
+        <p style="margin-top: 20px;"><a href="#" id="open-admin">🔒 Área Administrativa</a></p>
+    </footer>
 
-    <!-- Script de interação simples -->
+    <!-- Lógica de Funcionamento (JavaScript) -->
     <script>
-        // Array para armazenar os registros localmente
         const registrosArr = [];
-
-        // ⚠️ IMPORTANTE: Cole aqui a URL gerada na Implantação do seu Google Apps Script!
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKAPHqLdRlJ_0gkwNcrg_GEgn8Wu_14u3YTHmSBlZxKXpVA8qT9nIEMFZlsibcPkIQ/exec';
 
+        window.addEventListener('DOMContentLoaded', async function() {
+            if (SCRIPT_URL !== 'COLE_AQUI_A_URL_DO_SEU_WEB_APP') {
+                try {
+                    const response = await fetch(SCRIPT_URL + "?t=" + new Date().getTime());
+                    const textResponse = await response.text();
+                    
+                    let dadosPlanilha;
+                    try {
+                        dadosPlanilha = JSON.parse(textResponse);
+                    } catch (parseError) {
+                        throw new Error("Resposta do servidor não é JSON.");
+                    }
+                    
+                    if (Array.isArray(dadosPlanilha)) {
+                        registrosArr.length = 0;
+                        dadosPlanilha.forEach(item => registrosArr.push(item));
+                        atualizarTabelaAdmin();
+                    }
+                } catch (e) {
+                    console.error("Erro ao carregar estatísticas:", e.message);
+                    document.getElementById('total-cadastros').innerText = '0';
+                    document.getElementById('total-sem-agua').innerText = '0';
+                }
+            }
+        });
+
         document.getElementById('leadForm').addEventListener('submit', async function(event) {
-            event.preventDefault(); // Impede o recarregamento da página
+            event.preventDefault();
 
             const btnSubmit = this.querySelector('.submit-btn');
             const textoOriginal = btnSubmit.innerText;
             btnSubmit.innerText = 'Enviando aguarde...';
             btnSubmit.disabled = true;
 
-            // Coleta dos dados (pronto para envio)
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
             
             try {
-                // Envia para o banco de dados (Google Sheets) se a URL estiver configurada
                 if (SCRIPT_URL !== 'COLE_AQUI_A_URL_DO_SEU_WEB_APP') {
                     await fetch(SCRIPT_URL, {
                         method: 'POST',
                         body: JSON.stringify(data),
-                        headers: {
-                            'Content-Type': 'text/plain;charset=utf-8',
-                        }
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
                     });
                 }
 
-                // Adiciona no array do painel admin temporariamente para visualização rápida
                 registrosArr.push(data);
                 atualizarTabelaAdmin();
 
-                // Exibe mensagem de sucesso visual
                 const notification = document.getElementById('notification-area');
-                notification.innerHTML = '<div class="notification success">✅ Muito obrigado! Suas informações foram registradas com sucesso.</div>';
+                notification.innerHTML = '<div class="notification success">✅ Informações enviadas com sucesso!</div>';
                 
-                // Limpa o formulário após o envio
                 this.reset();
-
-                // Rola a página um pouco para cima para o usuário ver a notificação
-                window.scrollTo({
-                    top: document.querySelector('.form-card').offsetTop - 20,
-                    behavior: 'smooth'
-                });
+                window.scrollTo({ top: document.querySelector('.form-card').offsetTop - 80, behavior: 'smooth' });
             } catch (error) {
-                alert("Erro de comunicação com o servidor. Verifique sua conexão e tente novamente.");
-                console.error(error);
+                alert("Erro de comunicação com o servidor.");
             } finally {
                 btnSubmit.innerText = textoOriginal;
                 btnSubmit.disabled = false;
             }
         });
 
-        // Funções do Painel Admin
         function atualizarTabelaAdmin() {
             const tbody = document.getElementById('registros-tbody');
             tbody.innerHTML = '';
 
+            const totalCadastros = registrosArr.length;
+            const casasSemAgua = registrosArr.filter(reg => reg.situacao_agua && reg.situacao_agua !== 'Recebo água normal').length;
+            
+            if(document.getElementById('total-cadastros')) {
+                document.getElementById('total-cadastros').innerText = totalCadastros;
+                document.getElementById('total-sem-agua').innerText = casasSemAgua;
+            }
+
             if (registrosArr.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-light);">Nenhum registro ainda.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--apple-text-light);">Nenhum registro ainda.</td></tr>';
                 return;
             }
 
             registrosArr.forEach(reg => {
                 const tr = document.createElement('tr');
-                
-                // Limpa o número para o link do WhatsApp (força conversão para String para evitar erro se a planilha salvar como Número)
                 const numeroZap = String(reg.telefone || '').replace(/\D/g, '');
-                // Formata o endereço para a busca do Google Maps
                 const queryMapa = encodeURIComponent(String(reg.endereco || '') + ', Barra do Bugres, MT');
 
                 tr.innerHTML = `
@@ -553,7 +667,6 @@
             });
         }
 
-        // Controles para Abrir/Fechar o Painel Admin
         document.getElementById('open-admin').addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('password-modal').style.display = 'flex';
@@ -570,33 +683,7 @@
             if (senha === 'Chico2026') {
                 document.getElementById('password-modal').style.display = 'none';
                 document.getElementById('admin-panel').style.display = 'block';
-                window.scrollTo({
-                    top: document.getElementById('admin-panel').offsetTop - 20,
-                    behavior: 'smooth'
-                });
-
-                // Tenta puxar os dados reais do Google Sheets (Nuvem)
-                if (SCRIPT_URL !== 'COLE_AQUI_A_URL_DO_SEU_WEB_APP') {
-                    try {
-                        const tbody = document.getElementById('registros-tbody');
-                        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--primary-blue);">Carregando dados da nuvem...</td></tr>';
-                        
-                        // Adicionado um parâmetro de data/hora para forçar o navegador a não usar cache antigo
-                        const response = await fetch(SCRIPT_URL + "?t=" + new Date().getTime());
-                        const dadosPlanilha = await response.json();
-                        
-                        // Atualiza os dados sincronizados
-                        registrosArr.length = 0; 
-                        if (Array.isArray(dadosPlanilha)) {
-                            dadosPlanilha.forEach(item => registrosArr.push(item));
-                        }
-                        atualizarTabelaAdmin();
-                    } catch (e) {
-                        console.error("Erro ao puxar dados da planilha:", e);
-                        atualizarTabelaAdmin(); // Retorna para os dados locais armazenados em cache se falhar
-                    }
-                }
-
+                window.scrollTo({ top: document.getElementById('admin-panel').offsetTop - 80, behavior: 'smooth' });
             } else {
                 document.getElementById('password-error').style.display = 'block';
             }
@@ -606,6 +693,5 @@
             document.getElementById('admin-panel').style.display = 'none';
         });
     </script>
-
 </body>
 </html>

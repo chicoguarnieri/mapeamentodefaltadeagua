@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Falta de Água - Barra do Bugres</title>
+    <style>
+        /* Variáveis de Cores e Tema */
+        :root {
+            --primary-blue: #005f9e;
+            --secondary-blue: #0093d0;
+            --light-blue: #e6f4f1;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --white: #ffffff;
+            --border-color: #cccccc;
+            --error-color: #d9534f;
+        }
+
+        /* Reset e Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f8fb;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho Oficial */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Banner Principal (Proporção baseada em 1920x300) */
+        .banner-container {
+            width: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .banner {
+            width: 100%;
+            height: 300px;
+            /* Imagem com temática de seca/falta de água com as proporções corretas */
+            background-image: url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1920&h=300&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner-overlay {
+            background: rgba(0, 95, 158, 0.7);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .banner-overlay h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .banner-overlay p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        /* Container Principal do Formulário */
+        .main-container {
+            max-width: 800px;
+            margin: -40px auto 40px auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--secondary-blue);
+        }
+
+        .form-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .form-card > p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        /* Estilos de Formulário */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 147, 208, 0.2);
+        }
+
+        /* Opções de Rádio Personalizadas */
+        .radio-group-container {
+            background-color: var(--light-blue);
+            padding: 15px 20px;
+            border-radius: 6px;
+            border: 1px solid #cce5df;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .radio-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-blue);
+        }
+
+        .radio-option span {
+            font-size: 1.05rem;
+        }
+
+        /* Botão de Envio */
+        .submit-btn {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            background-color: #004b7c;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 40px;
+        }
+
+        /* Notificação de Sucesso/Erro */
+        .notification {
+            display: none;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .notification.success {
+            display: block;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Modal de Senha */
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .password-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 350px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Estilos do Painel Admin */
+        .admin-container {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto 40px auto;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--text-dark);
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .admin-header h3 {
+            color: var(--text-dark);
+        }
+        .btn-close-admin {
+            background: #ccc;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .admin-table th, .admin-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+        .admin-table th {
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+        }
+        .action-btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+        .btn-zap { background-color: #25D366; }
+        .btn-map { background-color: #4285F4; }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .banner {
+                height: 250px;
+            }
+            .banner-overlay h2 {
+                font-size: 1.8rem;
+            }
+            .form-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner {
+                height: 200px;
+            }
+            .banner-overlay h2 {
+                font-size: 1.5rem;
+            }
+            .banner-overlay p {
+                font-size: 0.9rem;
+            }
+            .main-container {
+                margin-top: -20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho Institucional -->
+    <header>
+        <h1>Departamento de Água e Esgoto</h1>
+        <p>Prefeitura Municipal de Barra do Bugres - MT</p>
+    </header>
+
+    <!-- Banner 1920x300px -->
+    <div class="banner-container">
+        <div class="banner">
+            <div class="banner-overlay">
+                <h2>Registro de Falta de Água</h2>
+                <p>Informe a situação do abastecimento na sua região para agilizarmos as equipes de manutenção e o restabelecimento do serviço em Barra do Bugres.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container do Formulário -->
+    <main class="main-container">
+        <div class="form-card">
+            
+            <div id="notification-area"></div>
+
+            <h3>Registrar Ocorrência</h3>
+            <p>Preencha os dados abaixo para registrar a falta de água ou instabilidade no abastecimento em sua residência.</p>
+
+            <form id="leadForm">
+                
+                <!-- Nome -->
+                <div class="form-group">
+                    <label for="nome">Nome Completo *</label>
+                    <input type="text" id="nome" name="nome" class="form-control" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <!-- Endereço -->
+                <div class="form-group">
+                    <label for="endereco">Endereço Completo *</label>
+                    <input type="text" id="endereco" name="endereco" class="form-control" placeholder="Rua, Número, Bairro, Ponto de Referência" required>
+                </div>
+
+                <!-- Telefone -->
+                <div class="form-group">
+                    <label for="telefone">Telefone (WhatsApp) *</label>
+                    <input type="tel" id="telefone" name="telefone" class="form-control" placeholder="(00) 00000-0000" required>
+                </div>
+
+                <!-- Situação da Água -->
+                <div class="form-group">
+                    <label>Situação da Distribuição de Água *</label>
+                    <div class="radio-group-container">
+                        <label class="radio-option">
+                            <input type="radio" name="situacao_agua" value="Recebo água normal" required>
+                            <span>Recebo água normal</span>
+                        </label>
+                        
+                        <label class="radio-option">
+                            <input type="radio" name="situacao_agua" value="De vez em quando">
+                            <span>De vez em quando</span>
+                        </label>
+                        
+                        <label class="radio-option">
+                            <input type="radio" name="situacao_agua" value="Nem sempre">
+                            <span>Nem sempre</span>
+                        </label>
+                        
+                        <label class="radio-option">
+                            <input type="radio" name="situacao_agua" value="Nunca">
+                            <span>Nunca</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Botão Enviar -->
+                <button type="submit" class="submit-btn">Enviar Informações</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2026 Departamento de Água de Barra do Bugres - MT.</p>
+        <p>Todos os dados coletados serão usados exclusivamente para fins de melhoria da rede de abastecimento.</p>
+        <p style="margin-top: 15px;"><a href="#" id="open-admin" style="color: var(--text-light); text-decoration: underline;">🔒 Acesso Área Administrativa</a></p>
+    </footer>
+
+    <!-- Modal de Senha -->
+    <div class="password-modal" id="password-modal">
+        <div class="password-card">
+            <h4 style="margin-bottom: 15px; color: var(--text-dark); text-align: center;">Acesso Restrito 🔒</h4>
+            <input type="password" id="admin-password" class="form-control" placeholder="Digite a senha">
+            <p id="password-error" style="color: var(--error-color); display: none; margin-top: 10px; font-size: 0.85rem; text-align: center;">Senha incorreta. Tente novamente.</p>
+            <button id="btn-verify-password" class="submit-btn" style="padding: 10px; margin-top: 15px;">Entrar</button>
+            <button id="btn-cancel-password" style="margin-top: 15px; background: none; border: none; color: var(--text-light); cursor: pointer; text-decoration: underline; width: 100%;">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Painel Administrativo (Oculto por padrão) -->
+    <div class="admin-container" id="admin-panel">
+        <div class="admin-header">
+            <h3>Registros Cadastrados (Área Admin)</h3>
+            <button id="close-admin" class="btn-close-admin">Fechar</button>
+        </div>
+        <div class="table-responsive">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>Situação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="registros-tbody">
+                    <!-- Registros aparecerão aqui -->
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: var(--text-light);">Nenhum registro ainda.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Script de interação simples -->
+    <script>
+        // Array para armazenar os registros localmente
+        const registrosArr = [];
+
+        // ⚠️ IMPORTANTE: Cole aqui a URL gerada na Implantação do seu Google Apps Script!
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKAPHqLdRlJ_0gkwNcrg_GEgn8Wu_14u3YTHmSBlZxKXpVA8qT9nIEMFZlsibcPkIQ/exec';
+
+        document.getElementById('leadForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Impede o recarregamento da página
+
+            const btnSubmit = this.querySelector('.submit-btn');
+            const textoOriginal = btnSubmit.innerText;
+            btnSubmit.innerText = 'Enviando aguarde...';
+            btnSubmit.disabled = true;
+
+            // Coleta dos dados (pronto para envio)
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                // Envia para o banco de dados (Google Sheets) se a URL estiver configurada
+                if (SCRIPT_URL !== 'COLE_AQUI_A_URL_DO_SEU_WEB_APP') {
+                    await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-Type': 'text/plain;charset=utf-8',
+                        }
+                    });
+                }
+
+                // Adiciona no array do painel admin temporariamente para visualização rápida
+                registrosArr.push(data);
+                atualizarTabelaAdmin();
+
+                // Exibe mensagem de sucesso visual
+                const notification = document.getElementById('notification-area');
+                notification.innerHTML = '<div class="notification success">✅ Muito obrigado! Suas informações foram registradas com sucesso.</div>';
+                
+                // Limpa o formulário após o envio
+                this.reset();
+
+                // Rola a página um pouco para cima para o usuário ver a notificação
+                window.scrollTo({
+                    top: document.querySelector('.form-card').offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            } catch (error) {
+                alert("Erro de comunicação com o servidor. Verifique sua conexão e tente novamente.");
+                console.error(error);
+            } finally {
+                btnSubmit.innerText = textoOriginal;
+                btnSubmit.disabled = false;
+            }
+        });
+
+        // Funções do Painel Admin
+        function atualizarTabelaAdmin() {
+            const tbody = document.getElementById('registros-tbody');
+            tbody.innerHTML = '';
+
+            if (registrosArr.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-light);">Nenhum registro ainda.</td></tr>';
+                return;
+            }
+
+            registrosArr.forEach(reg => {
+                const tr = document.createElement('tr');
+                
+                // Limpa o número para o link do WhatsApp (deixa apenas dígitos)
+                const numeroZap = reg.telefone.replace(/\D/g, '');
+                // Formata o endereço para a busca do Google Maps
+                const queryMapa = encodeURIComponent(reg.endereco + ', Barra do Bugres, MT');
+
+                tr.innerHTML = `
+                    <td>${reg.nome}</td>
+                    <td>${reg.telefone}</td>
+                    <td>${reg.endereco}</td>
+                    <td>${reg.situacao_agua}</td>
+                    <td>
+                        <a href="https://wa.me/55${numeroZap}" target="_blank" class="action-btn btn-zap">WhatsApp</a>
+                        <a href="https://maps.google.com/?q=${queryMapa}" target="_blank" class="action-btn btn-map">Mapa</a>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Controles para Abrir/Fechar o Painel Admin
+        document.getElementById('open-admin').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('password-modal').style.display = 'flex';
+            document.getElementById('admin-password').value = '';
+            document.getElementById('password-error').style.display = 'none';
+        });
+
+        document.getElementById('btn-cancel-password').addEventListener('click', function() {
+            document.getElementById('password-modal').style.display = 'none';
+        });
+
+        document.getElementById('btn-verify-password').addEventListener('click', async function() {
+            const senha = document.getElementById('admin-password').value;
+            if (senha === 'Chico2026') {
+                document.getElementById('password-modal').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                window.scrollTo({
+                    top: document.getElementById('admin-panel').offsetTop - 20,
+                    behavior: 'smooth'
+                });
+
+                // Tenta puxar os dados reais do Google Sheets (Nuvem)
+                if (SCRIPT_URL !== 'COLE_AQUI_A_URL_DO_SEU_WEB_APP') {
+                    try {
+                        const tbody = document.getElementById('registros-tbody');
+                        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--primary-blue);">Carregando dados da nuvem...</td></tr>';
+                        
+                        const response = await fetch(SCRIPT_URL);
+                        const dadosPlanilha = await response.json();
+                        
+                        // Atualiza os dados sincronizados
+                        registrosArr.length = 0; 
+                        dadosPlanilha.forEach(item => registrosArr.push(item));
+                        atualizarTabelaAdmin();
+                    } catch (e) {
+                        console.error("Erro ao puxar dados da planilha:", e);
+                        atualizarTabelaAdmin(); // Retorna para os dados locais armazenados em cache se falhar
+                    }
+                }
+
+            } else {
+                document.getElementById('password-error').style.display = 'block';
+            }
+        });
+
+        document.getElementById('close-admin').addEventListener('click', function() {
+            document.getElementById('admin-panel').style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>

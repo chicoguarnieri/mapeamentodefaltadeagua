@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Serviço de Atendimento à Falta de Água</title>
+    <title>Mapeamento de Falta de Água</title>
     <style>
         /* Variáveis de Tema - Estilo Apple com Pegada Água/Azul */
         :root {
@@ -217,6 +217,17 @@
 
         .form-control::placeholder {
             color: #a1a1a6;
+        }
+
+        /* Estilo específico para o Select (Dropdown) */
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235c7b99' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+            cursor: pointer;
         }
 
         /* Opções de Rádio (Estilo Cards Apple) */
@@ -445,8 +456,8 @@
 
     <!-- Cabeçalho Institucional -->
     <header>
-        <h1>Serviço de Atendimento à Falta de Água</h1>
-        <p>Município de Barra do Bugres - MT</p>
+        <h1>Mapeamento de Falta de Água</h1>
+        <p>Ancora Sistemas inteligêntes v0.1</p>
     </header>
 
     <main class="content-wrapper">
@@ -454,7 +465,7 @@
         <div class="banner">
             <div class="banner-overlay">
                 <h2>Censo de Abastecimento</h2>
-                <p>Contribua com informações relatando problemas de abastecimento de água na sua região.</p>
+                <p>Ajude as equipes de manutenção relatando as instabilidades na sua região.</p>
             </div>
         </div>
 
@@ -484,8 +495,50 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="bairro">Bairro / Comunidade / Distrito</label>
+                    <select id="bairro" name="bairro" class="form-control" required>
+                        <option value="" disabled selected>Selecione sua localidade...</option>
+                        <optgroup label="Bairros e Loteamentos">
+                            <option value="Centro">Centro</option>
+                            <option value="Maracanã">Maracanã</option>
+                            <option value="São Raimundo">São Raimundo</option>
+                            <option value="Jardim Boa Esperança">Jardim Boa Esperança</option>
+                            <option value="Jardim Oriente">Jardim Oriente</option>
+                            <option value="Jardim Primavera / Bairro Primavera">Jardim Primavera / Bairro Primavera</option>
+                            <option value="Jardim República">Jardim República</option>
+                            <option value="Bairro Pronav">Bairro Pronav</option>
+                            <option value="Loteamento Renê Barbur">Loteamento Renê Barbur</option>
+                        </optgroup>
+                        <optgroup label="Distritos e Comunidades Locais">
+                            <option value="Distrito de Assari">Distrito de Assari</option>
+                            <option value="Comunidade Currupira">Comunidade Currupira</option>
+                            <option value="Comunidade Novo Fernandópolis">Comunidade Novo Fernandópolis</option>
+                        </optgroup>
+                        <optgroup label="Comunidades Quilombolas">
+                            <option value="Água Doce">Água Doce</option>
+                            <option value="São José do Baixio (Baixiu)">São José do Baixio (Baixiu)</option>
+                            <option value="Morro Redondo">Morro Redondo</option>
+                            <option value="Vaca Morta">Vaca Morta</option>
+                            <option value="Vãozinho (Voltinha)">Vãozinho (Voltinha)</option>
+                            <option value="Vermelhinho">Vermelhinho</option>
+                        </optgroup>
+                        <optgroup label="Terras Indígenas">
+                            <option value="Terra Indígena Umutina">Terra Indígena Umutina</option>
+                            <option value="Terra Indígena Figueiras">Terra Indígena Figueiras</option>
+                        </optgroup>
+                        <optgroup label="Assentamentos Rurais (PA)">
+                            <option value="PA Antônio Conselheiro">PA Antônio Conselheiro</option>
+                            <option value="PA Cabaças">PA Cabaças</option>
+                            <option value="PA Triângulo">PA Triângulo</option>
+                            <option value="PA Vão Grande">PA Vão Grande</option>
+                            <option value="PDS Nova Conquista">PDS Nova Conquista</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="endereco">Endereço Completo</label>
-                    <input type="text" id="endereco" name="endereco" class="form-control" placeholder="Rua, Número, Bairro" required>
+                    <input type="text" id="endereco" name="endereco" class="form-control" placeholder="Rua, Número, Ponto de Referência" required>
                 </div>
 
                 <div class="form-group">
@@ -531,6 +584,7 @@
                         <tr>
                             <th>Nome</th>
                             <th>Telefone</th>
+                            <th>Bairro/Comunidade</th>
                             <th>Endereço</th>
                             <th>Situação</th>
                             <th>Ações</th>
@@ -538,7 +592,7 @@
                     </thead>
                     <tbody id="registros-tbody">
                         <tr>
-                            <td colspan="5" style="text-align: center; color: var(--apple-text-light);">Nenhum registro ainda.</td>
+                            <td colspan="6" style="text-align: center; color: var(--apple-text-light);">Nenhum registro ainda.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -559,8 +613,8 @@
 
     <!-- Rodapé -->
     <footer>
-        <p>&copy; 2026 Serviço de Atendimento à Falta de Água.</p>
-        <p>Ao se cadastrar você concorda com a utilização de todos os dados fornecidos.</p>
+        <p>&copy; 2026 Mapeamento de Falta de Água.</p>
+        <p>Ao se cadastrar você concorda em disponibilizar todos os dados fornecidos.</p>
         <p style="margin-top: 20px;"><a href="#" id="open-admin">🔒 Área Administrativa</a></p>
     </footer>
 
@@ -644,18 +698,21 @@
             }
 
             if (registrosArr.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--apple-text-light);">Nenhum registro ainda.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--apple-text-light);">Nenhum registro ainda.</td></tr>';
                 return;
             }
 
             registrosArr.forEach(reg => {
                 const tr = document.createElement('tr');
                 const numeroZap = String(reg.telefone || '').replace(/\D/g, '');
-                const queryMapa = encodeURIComponent(String(reg.endereco || '') + ', Barra do Bugres, MT');
+                
+                // Atualiza o link do mapa para incluir o bairro na pesquisa e ser mais preciso
+                const queryMapa = encodeURIComponent(`${String(reg.endereco || '')}, ${String(reg.bairro || '')}, Barra do Bugres, MT`);
 
                 tr.innerHTML = `
                     <td>${reg.nome || ''}</td>
                     <td>${reg.telefone || ''}</td>
+                    <td>${reg.bairro || ''}</td>
                     <td>${reg.endereco || ''}</td>
                     <td>${reg.situacao_agua || ''}</td>
                     <td>

@@ -63,6 +63,24 @@
             min-height: 100vh;
         }
 
+        /* Animação de Carregamento (Loader) */
+        #page-loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--apple-bg);
+            z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid var(--apple-border);
+            border-top: 5px solid var(--apple-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         /* Views Principais (Navegação SPA) */
         #main-view { display: block; }
         #admin-view { display: none; background: var(--apple-bg); min-height: 100vh; position: absolute; top:0; left:0; width: 100%; z-index: 200; }
@@ -236,6 +254,12 @@
     </style>
 </head>
 <body>
+
+    <!-- Loader de Carregamento Inicial -->
+    <div id="page-loader">
+        <div class="spinner"></div>
+        <p style="margin-top: 15px; color: var(--apple-text-light); font-weight: 600;">Carregando informações...</p>
+    </div>
 
     <div id="main-view">
         <header>
@@ -479,6 +503,13 @@
         window.addEventListener('DOMContentLoaded', async function() {
             await carregarDadosPlanilha();
             
+            // Oculta o ecrã de carregamento suavemente após carregar os dados
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }
+            
             // Inicializa o mapa interativo do formulário
             formMapInstance = L.map('form-map', { zoomControl: false }).setView([-15.0743, -57.1808], 14);
             L.tileLayer(getMapTileUrl(), { attribution: '© OpenStreetMap' }).addTo(formMapInstance);
@@ -524,19 +555,20 @@
         let exactLng = null;
         let debounceTimer;
 
-        // Busca Inteligente (Autocomplete) e Atualização do Mapa
+        // Busca Inteligente (Autocomplete) - Imediata
         document.getElementById('endereco').addEventListener('input', function(e) {
             clearTimeout(debounceTimer);
             let val = this.value;
             let list = document.getElementById('autocomplete-list');
             list.innerHTML = '';
             
-            if (!val || val.length < 4) return;
+            // Dispara imediatamente a partir da 2ª letra digitada
+            if (!val || val.length < 2) return;
             
             let bairro = document.getElementById('bairro').value || '';
             let contextQuery = val + (bairro ? `, ${bairro}` : '') + ', Barra do Bugres, MT, Brasil';
 
-            // O Timer de 1000ms evita o Erro 403 (bloqueio por excesso de tentativas no servidor de mapas)
+            // Sem tempo de espera (imediato)
             debounceTimer = setTimeout(async () => {
                 try {
                     let url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(contextQuery)}&limit=5&addressdetails=1`;
@@ -568,7 +600,7 @@
                         list.appendChild(div);
                     });
                 } catch (e) { console.warn("Autocomplete bloqueado ou falhou:", e); }
-            }, 1000); 
+            }, 10); // Execução imediata
         });
 
         // Fecha a lista de autocomplete se clicar fora
